@@ -1,0 +1,8 @@
+query GetSpaceships {
+  spaceships {
+    data {
+      _id
+      name
+    }
+  }
+}
