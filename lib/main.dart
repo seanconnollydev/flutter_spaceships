@@ -36,14 +36,39 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final Client _client;
+  final _getSpaceshipsRequest = GGetSpaceshipsReq();
+
   MyHomePage(this._client);
+
+  _openCreateSpaceshipSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) {
+        return CreateSpaceshipSheet(
+          client: _client,
+          onSpaceshipCreated: _handleSpaceshipCreated,
+        );
+      },
+    );
+  }
+
+  void _handleSpaceshipCreated() {
+    print('>>> _handleSpaceshipCreated');
+  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<
         OperationResponse<GGetSpaceshipsData, GGetSpaceshipsVars>>(
-      stream: _client.request(GGetSpaceshipsReq()),
+      stream: _client.request(_getSpaceshipsRequest),
       builder: (context, snapshot) {
+        print('>>> build()');
+        if (snapshot.data?.graphqlErrors?.isNotEmpty == true) {
+          snapshot.data.graphqlErrors.forEach((gqlError) {
+            print('>>> ${gqlError.message}');
+          });
+        }
         return Scaffold(
           appBar: AppBar(
             // Here we take the value from the MyHomePage object that was created by
@@ -54,7 +79,7 @@ class MyHomePage extends StatelessWidget {
               ? SpaceshipList(snapshot.data.data.spaceships)
               : Text('Loading...'),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => {},
+            onPressed: () => _openCreateSpaceshipSheet(context),
             tooltip: 'Add a Spaceship',
             child: Icon(Icons.add),
           ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -79,6 +104,70 @@ class SpaceshipList extends StatelessWidget {
           trailing: Text('🚀'),
         );
       },
+    );
+  }
+}
+
+class CreateSpaceshipSheet extends StatefulWidget {
+  final Client client;
+  final Function onSpaceshipCreated;
+  CreateSpaceshipSheet({this.client, this.onSpaceshipCreated});
+
+  @override
+  _CreateSpaceshipSheetState createState() => _CreateSpaceshipSheetState();
+}
+
+class _CreateSpaceshipSheetState extends State<CreateSpaceshipSheet> {
+  final _nameController = TextEditingController();
+
+  void _createSpaceship() {
+    final name = _nameController.value.text;
+    final request = GCreateSpaceshipReq((b) => b..vars.data.name = name);
+    widget.client
+        .request(request)
+        .first
+        .then(
+          (_) => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Spaceship created!'),
+              duration: const Duration(seconds: 1),
+            ),
+          ),
+        )
+        .whenComplete(() => Navigator.of(context).pop());
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 16,
+        bottom: 16,
+        // bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+      ),
+      child: Row(
+        children: [
+          Flexible(
+            child: TextField(
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                labelText: 'Spaceship Name',
+              ),
+              controller: _nameController,
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.send),
+            onPressed: () => _createSpaceship(),
+          )
+        ],
+      ),
     );
   }
 }

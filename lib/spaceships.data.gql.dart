@@ -78,3 +78,51 @@ abstract class GGetSpaceshipsData_spaceships_data
       _i1.serializers
           .deserializeWith(GGetSpaceshipsData_spaceships_data.serializer, json);
 }
+
+abstract class GCreateSpaceshipData
+    implements Built<GCreateSpaceshipData, GCreateSpaceshipDataBuilder> {
+  GCreateSpaceshipData._();
+
+  factory GCreateSpaceshipData(
+          [Function(GCreateSpaceshipDataBuilder b) updates]) =
+      _$GCreateSpaceshipData;
+
+  static void _initializeBuilder(GCreateSpaceshipDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  GCreateSpaceshipData_createSpaceship get createSpaceship;
+  static Serializer<GCreateSpaceshipData> get serializer =>
+      _$gCreateSpaceshipDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GCreateSpaceshipData.serializer, this);
+  static GCreateSpaceshipData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GCreateSpaceshipData.serializer, json);
+}
+
+abstract class GCreateSpaceshipData_createSpaceship
+    implements
+        Built<GCreateSpaceshipData_createSpaceship,
+            GCreateSpaceshipData_createSpaceshipBuilder> {
+  GCreateSpaceshipData_createSpaceship._();
+
+  factory GCreateSpaceshipData_createSpaceship(
+          [Function(GCreateSpaceshipData_createSpaceshipBuilder b) updates]) =
+      _$GCreateSpaceshipData_createSpaceship;
+
+  static void _initializeBuilder(
+          GCreateSpaceshipData_createSpaceshipBuilder b) =>
+      b..G__typename = 'Spaceship';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @BuiltValueField(wireName: '_id')
+  String get G_id;
+  static Serializer<GCreateSpaceshipData_createSpaceship> get serializer =>
+      _$gCreateSpaceshipDataCreateSpaceshipSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GCreateSpaceshipData_createSpaceship.serializer, this);
+  static GCreateSpaceshipData_createSpaceship fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GCreateSpaceshipData_createSpaceship.serializer, json);
+}

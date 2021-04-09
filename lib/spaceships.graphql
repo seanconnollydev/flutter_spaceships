@@ -6,3 +6,9 @@ query GetSpaceships {
     }
   }
 }
+
+mutation CreateSpaceship($data: SpaceshipInput!) {
+  createSpaceship(data: $data) {
+    _id
+  }
+}
