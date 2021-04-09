@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   ferry: ^0.9.4
+  ferry_flutter: ^0.4.0
   gql_http_link: ^0.3.2
   flutter_dotenv: ^3.1.0
 

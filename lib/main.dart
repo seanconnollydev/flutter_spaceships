@@ -1,4 +1,5 @@
 import 'package:ferry/ferry.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_spaceships/spaceships.data.gql.dart';
@@ -26,19 +27,32 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(_client),
+      home: HomeScreen(_client),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final Client _client;
-  final _getSpaceshipsRequest = GGetSpaceshipsReq();
 
-  MyHomePage(this._client);
+  HomeScreen(this._client);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  GGetSpaceshipsReq _getSpaceshipsReq;
+
+  @override
+  void initState() {
+    super.initState();
+    _getSpaceshipsReq =
+        GGetSpaceshipsReq((b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork);
+  }
 
   _openCreateSpaceshipSheet(BuildContext context) {
     showModalBottomSheet(
@@ -46,7 +60,7 @@ class MyHomePage extends StatelessWidget {
       isScrollControlled: true,
       builder: (_) {
         return CreateSpaceshipSheet(
-          client: _client,
+          client: widget._client,
           onSpaceshipCreated: _handleSpaceshipCreated,
         );
       },
@@ -54,35 +68,34 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _handleSpaceshipCreated() {
-    print('>>> _handleSpaceshipCreated');
+    widget._client.requestController.add(_getSpaceshipsReq);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Spaceship created!'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<
-        OperationResponse<GGetSpaceshipsData, GGetSpaceshipsVars>>(
-      stream: _client.request(_getSpaceshipsRequest),
-      builder: (context, snapshot) {
-        print('>>> build()');
-        if (snapshot.data?.graphqlErrors?.isNotEmpty == true) {
-          snapshot.data.graphqlErrors.forEach((gqlError) {
-            print('>>> ${gqlError.message}');
-          });
-        }
+    return Operation<GGetSpaceshipsData, GGetSpaceshipsVars>(
+      client: widget._client,
+      operationRequest: _getSpaceshipsReq,
+      builder: (context, response, error) {
         return Scaffold(
           appBar: AppBar(
-            // Here we take the value from the MyHomePage object that was created by
-            // the App.build method, and use it to set our appbar title.
             title: Text("Flutter Space Fleet"),
           ),
-          body: snapshot.data?.data != null
-              ? SpaceshipList(snapshot.data.data.spaceships)
+          body: response.data != null
+              ? SpaceshipList(response.data.spaceships)
               : Text('Loading...'),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _openCreateSpaceshipSheet(context),
             tooltip: 'Add a Spaceship',
             child: Icon(Icons.add),
-          ), // This trailing comma makes auto-formatting nicer for build methods.
+          ),
         );
       },
     );
@@ -127,12 +140,7 @@ class _CreateSpaceshipSheetState extends State<CreateSpaceshipSheet> {
         .request(request)
         .first
         .then(
-          (_) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('Spaceship created!'),
-              duration: const Duration(seconds: 1),
-            ),
-          ),
+          (_) => widget.onSpaceshipCreated(),
         )
         .whenComplete(() => Navigator.of(context).pop());
   }
@@ -149,7 +157,6 @@ class _CreateSpaceshipSheetState extends State<CreateSpaceshipSheet> {
       padding: EdgeInsets.only(
         left: 16,
         bottom: 16,
-        // bottom: MediaQuery.of(context).viewInsets.bottom + 16,
       ),
       child: Row(
         children: [
