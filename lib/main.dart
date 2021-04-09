@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_spaceships/spaceships.data.gql.dart';
 import 'package:flutter_spaceships/spaceships.var.gql.dart';
-import 'ferry.dart';
+import 'package:gql_http_link/gql_http_link.dart';
 import 'spaceships.req.gql.dart';
 
 void main() async {
   await DotEnv.load();
-  final client = createClient();
+  final client = Client(
+    link: HttpLink("https://graphql.fauna.com/graphql", defaultHeaders: {
+      'Authorization': 'Bearer ${DotEnv.env["FAUNA_KEY"]}',
+    }),
+  );
   runApp(MyApp(client));
 }
 
@@ -47,13 +51,32 @@ class MyHomePage extends StatelessWidget {
             title: Text("Flutter Space Fleet"),
           ),
           body: snapshot.data?.data != null
-              ? Text(snapshot.data.data.spaceships.data.first.name)
+              ? SpaceshipList(snapshot.data.data.spaceships)
               : Text('Loading...'),
           floatingActionButton: FloatingActionButton(
             onPressed: () => {},
             tooltip: 'Add a Spaceship',
             child: Icon(Icons.add),
           ), // This trailing comma makes auto-formatting nicer for build methods.
+        );
+      },
+    );
+  }
+}
+
+class SpaceshipList extends StatelessWidget {
+  final GGetSpaceshipsData_spaceships _spaceships;
+  SpaceshipList(this._spaceships);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: _spaceships.data.length,
+      itemBuilder: (context, i) {
+        final spaceship = _spaceships.data[i];
+        return ListTile(
+          title: Text(spaceship.name),
+          trailing: Text('🚀'),
         );
       },
     );
