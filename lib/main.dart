@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _getSpaceshipsReq =
-        GGetSpaceshipsReq((b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork);
+        GGetSpaceshipsReq((b) => b..fetchPolicy = FetchPolicy.NetworkOnly);
   }
 
   _openCreateSpaceshipSheet(BuildContext context) {
@@ -88,9 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             title: Text("Flutter Space Fleet"),
           ),
-          body: response.data != null
-              ? SpaceshipList(response.data.spaceships)
-              : Text('Loading...'),
+          body: response.loading
+              ? Text('Loading...')
+              : SpaceshipList(response.data.spaceships),
           floatingActionButton: FloatingActionButton(
             onPressed: () => _openCreateSpaceshipSheet(context),
             tooltip: 'Add a Spaceship',
