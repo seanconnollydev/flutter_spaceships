@@ -1,10 +1,11 @@
-import 'package:ferry/ferry.dart';
-import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:ferry/ferry.dart';
+import 'package:gql_http_link/gql_http_link.dart';
+import 'package:ferry_flutter/ferry_flutter.dart';
 import 'package:flutter_spaceships/spaceships.data.gql.dart';
 import 'package:flutter_spaceships/spaceships.var.gql.dart';
-import 'package:gql_http_link/gql_http_link.dart';
+
 import 'spaceships.req.gql.dart';
 
 void main() async {
@@ -14,17 +15,17 @@ void main() async {
       'Authorization': 'Bearer ${DotEnv.env["FAUNA_KEY"]}',
     }),
   );
-  runApp(MyApp(client));
+  runApp(App(client));
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   final Client _client;
-  MyApp(this._client);
+  App(this._client);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Spaceships',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
