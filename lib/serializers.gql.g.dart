@@ -7,10 +7,6 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(GCreateSpaceshipData.serializer)
-      ..add(GCreateSpaceshipData_createSpaceship.serializer)
-      ..add(GCreateSpaceshipReq.serializer)
-      ..add(GCreateSpaceshipVars.serializer)
       ..add(GDate.serializer)
       ..add(GGetSpaceshipsData.serializer)
       ..add(GGetSpaceshipsData_spaceships.serializer)

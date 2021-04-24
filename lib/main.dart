@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   final Client _client;
   MyApp(this._client);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,54 +34,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   final Client _client;
 
   HomeScreen(this._client);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  GGetSpaceshipsReq _getSpaceshipsReq;
-
-  @override
-  void initState() {
-    super.initState();
-    _getSpaceshipsReq =
-        GGetSpaceshipsReq((b) => b..fetchPolicy = FetchPolicy.NetworkOnly);
-  }
-
-  _openCreateSpaceshipSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (_) {
-        return CreateSpaceshipSheet(
-          client: widget._client,
-          onSpaceshipCreated: _handleSpaceshipCreated,
-        );
-      },
-    );
-  }
-
-  void _handleSpaceshipCreated() {
-    widget._client.requestController.add(_getSpaceshipsReq);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Spaceship created!'),
-        duration: const Duration(seconds: 1),
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Operation<GGetSpaceshipsData, GGetSpaceshipsVars>(
-      client: widget._client,
-      operationRequest: _getSpaceshipsReq,
+      client: _client,
+      operationRequest: GGetSpaceshipsReq(),
       builder: (context, response, error) {
         return Scaffold(
           appBar: AppBar(
@@ -91,11 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
           body: response.loading
               ? Text('Loading...')
               : SpaceshipList(response.data.spaceships),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => _openCreateSpaceshipSheet(context),
-            tooltip: 'Add a Spaceship',
-            child: Icon(Icons.add),
-          ),
         );
       },
     );
@@ -117,64 +73,6 @@ class SpaceshipList extends StatelessWidget {
           trailing: Text('🚀'),
         );
       },
-    );
-  }
-}
-
-class CreateSpaceshipSheet extends StatefulWidget {
-  final Client client;
-  final Function onSpaceshipCreated;
-  CreateSpaceshipSheet({this.client, this.onSpaceshipCreated});
-
-  @override
-  _CreateSpaceshipSheetState createState() => _CreateSpaceshipSheetState();
-}
-
-class _CreateSpaceshipSheetState extends State<CreateSpaceshipSheet> {
-  final _nameController = TextEditingController();
-
-  void _createSpaceship() {
-    final name = _nameController.value.text;
-    final request = GCreateSpaceshipReq((b) => b..vars.data.name = name);
-    widget.client
-        .request(request)
-        .first
-        .then(
-          (_) => widget.onSpaceshipCreated(),
-        )
-        .whenComplete(() => Navigator.of(context).pop());
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: 16,
-        bottom: 16,
-      ),
-      child: Row(
-        children: [
-          Flexible(
-            child: TextField(
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                labelText: 'Spaceship Name',
-              ),
-              controller: _nameController,
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () => _createSpaceship(),
-          )
-        ],
-      ),
     );
   }
 }
