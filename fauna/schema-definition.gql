@@ -1,3 +1,7 @@
 type Spaceship {
   name: String!
 }
+
+type Query {
+  spaceships: [Spaceship!]!
+}

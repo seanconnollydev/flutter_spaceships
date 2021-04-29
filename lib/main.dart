@@ -3,10 +3,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:ferry/ferry.dart';
 import 'package:gql_http_link/gql_http_link.dart';
 import 'package:ferry_flutter/ferry_flutter.dart';
-import 'package:flutter_spaceships/spaceships.data.gql.dart';
-import 'package:flutter_spaceships/spaceships.var.gql.dart';
-
 import 'spaceships.req.gql.dart';
+import 'spaceships.data.gql.dart';
+import 'spaceships.var.gql.dart';
 
 void main() async {
   await DotEnv.load();
