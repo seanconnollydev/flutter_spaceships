@@ -69,8 +69,11 @@ class SpaceshipList extends StatelessWidget {
       itemBuilder: (context, i) {
         final spaceship = _spaceships.data[i];
         return ListTile(
-          title: Text(spaceship.name),
-          trailing: Text('🚀'),
+          title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
+          trailing: Text(
+            '🚀',
+            style: TextStyle(fontSize: 24),
+          ),
         );
       },
     );
