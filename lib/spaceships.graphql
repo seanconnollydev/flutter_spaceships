@@ -17,5 +17,6 @@ query GetSpaceship($id: ID!) {
 mutation UpdateSpaceship($id: ID!, $data: SpaceshipInput!) {
   updateSpaceship(id: $id, data: $data) {
     _id
+    name
   }
 }

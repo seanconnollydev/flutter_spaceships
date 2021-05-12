@@ -167,6 +167,7 @@ abstract class GUpdateSpaceshipData_updateSpaceship
   String get G__typename;
   @BuiltValueField(wireName: '_id')
   String get G_id;
+  String get name;
   static Serializer<GUpdateSpaceshipData_updateSpaceship> get serializer =>
       _$gUpdateSpaceshipDataUpdateSpaceshipSerializer;
   Map<String, dynamic> toJson() => _i1.serializers

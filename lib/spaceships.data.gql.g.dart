@@ -381,6 +381,8 @@ class _$GUpdateSpaceshipData_updateSpaceshipSerializer
           specifiedType: const FullType(String)),
       '_id',
       serializers.serialize(object.G_id, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -404,6 +406,10 @@ class _$GUpdateSpaceshipData_updateSpaceshipSerializer
           break;
         case '_id':
           result.G_id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -1115,6 +1121,8 @@ class _$GUpdateSpaceshipData_updateSpaceship
   final String G__typename;
   @override
   final String G_id;
+  @override
+  final String name;
 
   factory _$GUpdateSpaceshipData_updateSpaceship(
           [void Function(GUpdateSpaceshipData_updateSpaceshipBuilder)
@@ -1122,7 +1130,8 @@ class _$GUpdateSpaceshipData_updateSpaceship
       (new GUpdateSpaceshipData_updateSpaceshipBuilder()..update(updates))
           .build();
 
-  _$GUpdateSpaceshipData_updateSpaceship._({this.G__typename, this.G_id})
+  _$GUpdateSpaceshipData_updateSpaceship._(
+      {this.G__typename, this.G_id, this.name})
       : super._() {
     if (G__typename == null) {
       throw new BuiltValueNullFieldError(
@@ -1131,6 +1140,10 @@ class _$GUpdateSpaceshipData_updateSpaceship
     if (G_id == null) {
       throw new BuiltValueNullFieldError(
           'GUpdateSpaceshipData_updateSpaceship', 'G_id');
+    }
+    if (name == null) {
+      throw new BuiltValueNullFieldError(
+          'GUpdateSpaceshipData_updateSpaceship', 'name');
     }
   }
 
@@ -1148,19 +1161,22 @@ class _$GUpdateSpaceshipData_updateSpaceship
     if (identical(other, this)) return true;
     return other is GUpdateSpaceshipData_updateSpaceship &&
         G__typename == other.G__typename &&
-        G_id == other.G_id;
+        G_id == other.G_id &&
+        name == other.name;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), G_id.hashCode));
+    return $jf(
+        $jc($jc($jc(0, G__typename.hashCode), G_id.hashCode), name.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('GUpdateSpaceshipData_updateSpaceship')
           ..add('G__typename', G__typename)
-          ..add('G_id', G_id))
+          ..add('G_id', G_id)
+          ..add('name', name))
         .toString();
   }
 }
@@ -1179,6 +1195,10 @@ class GUpdateSpaceshipData_updateSpaceshipBuilder
   String get G_id => _$this._G_id;
   set G_id(String G_id) => _$this._G_id = G_id;
 
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
   GUpdateSpaceshipData_updateSpaceshipBuilder() {
     GUpdateSpaceshipData_updateSpaceship._initializeBuilder(this);
   }
@@ -1187,6 +1207,7 @@ class GUpdateSpaceshipData_updateSpaceshipBuilder
     if (_$v != null) {
       _G__typename = _$v.G__typename;
       _G_id = _$v.G_id;
+      _name = _$v.name;
       _$v = null;
     }
     return this;
@@ -1210,7 +1231,7 @@ class GUpdateSpaceshipData_updateSpaceshipBuilder
   _$GUpdateSpaceshipData_updateSpaceship build() {
     final _$result = _$v ??
         new _$GUpdateSpaceshipData_updateSpaceship._(
-            G__typename: G__typename, G_id: G_id);
+            G__typename: G__typename, G_id: G_id, name: name);
     replace(_$result);
     return _$result;
   }
