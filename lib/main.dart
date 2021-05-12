@@ -10,9 +10,12 @@ import 'spaceships.var.gql.dart';
 void main() async {
   await DotEnv.load();
   final client = Client(
-    link: HttpLink("https://graphql.fauna.com/graphql", defaultHeaders: {
-      'Authorization': 'Bearer ${DotEnv.env["FAUNA_KEY"]}',
-    }),
+    link: HttpLink(
+      "https://graphql.fauna.com/graphql",
+      defaultHeaders: {
+        'Authorization': 'Bearer ${DotEnv.env["FAUNA_KEY"]}',
+      },
+    ),
   );
   runApp(App(client));
 }
@@ -51,7 +54,7 @@ class HomeScreen extends StatelessWidget {
           ),
           body: response.loading
               ? Text('Loading...')
-              : SpaceshipList(response.data.spaceships),
+              : SpaceshipList(_client, response.data.spaceships),
         );
       },
     );
@@ -59,8 +62,9 @@ class HomeScreen extends StatelessWidget {
 }
 
 class SpaceshipList extends StatelessWidget {
+  final Client _client;
   final GGetSpaceshipsData_spaceships _spaceships;
-  SpaceshipList(this._spaceships);
+  SpaceshipList(this._client, this._spaceships);
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +75,73 @@ class SpaceshipList extends StatelessWidget {
         return ListTile(
           title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
           trailing: Text('🚀', style: TextStyle(fontSize: 24)),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditSpaceshipScreen(
+                      client: _client,
+                      spaceshipId: spaceship.G_id,
+                    )),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class EditSpaceshipScreen extends StatefulWidget {
+  final Client client;
+  final String spaceshipId;
+
+  EditSpaceshipScreen({@required this.client, @required this.spaceshipId});
+
+  @override
+  _EditSpaceshipScreenState createState() => _EditSpaceshipScreenState();
+}
+
+class _EditSpaceshipScreenState extends State<EditSpaceshipScreen> {
+  TextEditingController _nameController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Operation<GGetSpaceshipData, GGetSpaceshipVars>(
+      client: widget.client,
+      operationRequest:
+          GGetSpaceshipReq((b) => b..vars.id = widget.spaceshipId),
+      builder: (context, response, error) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(response.data?.findSpaceshipByID?.name ?? 'Loading...'),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.save),
+                onPressed: () async {
+                  final mutation = GUpdateSpaceshipReq(
+                    (b) => b
+                      ..vars.id = widget.spaceshipId
+                      ..vars.data.name = _nameController.text,
+                  );
+                  await widget.client.request(mutation).first;
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ),
+          body: Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.badge),
+                    helperText: 'Enter a new name for this ship',
+                    labelText: 'Name',
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       },
     );
