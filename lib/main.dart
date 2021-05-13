@@ -42,11 +42,14 @@ class HomeScreen extends StatelessWidget {
 
   HomeScreen(this._client);
 
+  GGetSpaceshipsReq get _request =>
+      GGetSpaceshipsReq((b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork);
+
   @override
   Widget build(BuildContext context) {
     return Operation<GGetSpaceshipsData, GGetSpaceshipsVars>(
       client: _client,
-      operationRequest: GGetSpaceshipsReq(),
+      operationRequest: _request,
       builder: (context, response, error) {
         return Scaffold(
           appBar: AppBar(
@@ -55,6 +58,21 @@ class HomeScreen extends StatelessWidget {
           body: response.loading
               ? Text('Loading...')
               : SpaceshipList(_client, response.data.spaceships),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddSpaceshipScreen(
+                    client: _client,
+                  ),
+                ),
+              ).then((_) {
+                _client.requestController.add(_request);
+              });
+            },
+          ),
         );
       },
     );
@@ -75,75 +93,60 @@ class SpaceshipList extends StatelessWidget {
         return ListTile(
           title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
           trailing: Text('🚀', style: TextStyle(fontSize: 24)),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => EditSpaceshipScreen(
-                      client: _client,
-                      spaceshipId: spaceship.G_id,
-                    )),
-          ),
         );
       },
     );
   }
 }
 
-class EditSpaceshipScreen extends StatefulWidget {
+class AddSpaceshipScreen extends StatefulWidget {
   final Client client;
-  final String spaceshipId;
 
-  EditSpaceshipScreen({@required this.client, @required this.spaceshipId});
+  AddSpaceshipScreen({this.client});
 
   @override
-  _EditSpaceshipScreenState createState() => _EditSpaceshipScreenState();
+  _AddSpaceshipScreenState createState() => _AddSpaceshipScreenState();
 }
 
-class _EditSpaceshipScreenState extends State<EditSpaceshipScreen> {
-  TextEditingController _nameController = TextEditingController();
+class _AddSpaceshipScreenState extends State<AddSpaceshipScreen> {
+  final _nameController = TextEditingController();
+
+  _save(BuildContext context) async {
+    final mutation =
+        GCreateSpaceshipReq((b) => b..vars.data.name = _nameController.text);
+
+    await widget.client.request(mutation).first;
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Operation<GGetSpaceshipData, GGetSpaceshipVars>(
-      client: widget.client,
-      operationRequest:
-          GGetSpaceshipReq((b) => b..vars.id = widget.spaceshipId),
-      builder: (context, response, error) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(response.data?.findSpaceshipByID?.name ?? 'Loading...'),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.save),
-                onPressed: () async {
-                  final mutation = GUpdateSpaceshipReq(
-                    (b) => b
-                      ..vars.id = widget.spaceshipId
-                      ..vars.data.name = _nameController.text,
-                  );
-                  await widget.client.request(mutation).first;
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ),
-          body: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.badge),
-                    helperText: 'Enter a new name for this ship',
-                    labelText: 'Name',
-                  ),
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Spaceship'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () => _save(context),
+          )
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text('Add a new Spaceship to your fleet.'),
+            TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                icon: Icon(Icons.badge),
+                helperText: 'Enter a name for the ship',
+                labelText: 'Name',
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

@@ -5,17 +5,17 @@ import 'package:flutter_spaceships/schema.schema.gql.dart'
     show GDate, GLong, GSpaceshipInput, GTime;
 import 'package:flutter_spaceships/spaceships.data.gql.dart'
     show
+        GCreateSpaceshipData,
+        GCreateSpaceshipData_createSpaceship,
         GGetSpaceshipData,
         GGetSpaceshipData_findSpaceshipByID,
         GGetSpaceshipsData,
         GGetSpaceshipsData_spaceships,
-        GGetSpaceshipsData_spaceships_data,
-        GUpdateSpaceshipData,
-        GUpdateSpaceshipData_updateSpaceship;
+        GGetSpaceshipsData_spaceships_data;
 import 'package:flutter_spaceships/spaceships.req.gql.dart'
-    show GGetSpaceshipReq, GGetSpaceshipsReq, GUpdateSpaceshipReq;
+    show GCreateSpaceshipReq, GGetSpaceshipReq, GGetSpaceshipsReq;
 import 'package:flutter_spaceships/spaceships.var.gql.dart'
-    show GGetSpaceshipVars, GGetSpaceshipsVars, GUpdateSpaceshipVars;
+    show GCreateSpaceshipVars, GGetSpaceshipVars, GGetSpaceshipsVars;
 import 'package:gql_code_builder/src/serializers/operation_serializer.dart'
     show OperationSerializer;
 
@@ -25,6 +25,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   ..add(OperationSerializer())
   ..addPlugin(StandardJsonPlugin());
 @SerializersFor([
+  GCreateSpaceshipData,
+  GCreateSpaceshipData_createSpaceship,
+  GCreateSpaceshipReq,
+  GCreateSpaceshipVars,
   GDate,
   GGetSpaceshipData,
   GGetSpaceshipData_findSpaceshipByID,
@@ -37,10 +41,6 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GGetSpaceshipsVars,
   GLong,
   GSpaceshipInput,
-  GTime,
-  GUpdateSpaceshipData,
-  GUpdateSpaceshipData_updateSpaceship,
-  GUpdateSpaceshipReq,
-  GUpdateSpaceshipVars
+  GTime
 ])
 final Serializers serializers = _serializersBuilder.build();

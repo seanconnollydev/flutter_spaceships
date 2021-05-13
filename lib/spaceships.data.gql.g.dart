@@ -19,11 +19,11 @@ Serializer<GGetSpaceshipData> _$gGetSpaceshipDataSerializer =
 Serializer<GGetSpaceshipData_findSpaceshipByID>
     _$gGetSpaceshipDataFindSpaceshipByIDSerializer =
     new _$GGetSpaceshipData_findSpaceshipByIDSerializer();
-Serializer<GUpdateSpaceshipData> _$gUpdateSpaceshipDataSerializer =
-    new _$GUpdateSpaceshipDataSerializer();
-Serializer<GUpdateSpaceshipData_updateSpaceship>
-    _$gUpdateSpaceshipDataUpdateSpaceshipSerializer =
-    new _$GUpdateSpaceshipData_updateSpaceshipSerializer();
+Serializer<GCreateSpaceshipData> _$gCreateSpaceshipDataSerializer =
+    new _$GCreateSpaceshipDataSerializer();
+Serializer<GCreateSpaceshipData_createSpaceship>
+    _$gCreateSpaceshipDataCreateSpaceshipSerializer =
+    new _$GCreateSpaceshipData_createSpaceshipSerializer();
 
 class _$GGetSpaceshipsDataSerializer
     implements StructuredSerializer<GGetSpaceshipsData> {
@@ -303,40 +303,37 @@ class _$GGetSpaceshipData_findSpaceshipByIDSerializer
   }
 }
 
-class _$GUpdateSpaceshipDataSerializer
-    implements StructuredSerializer<GUpdateSpaceshipData> {
+class _$GCreateSpaceshipDataSerializer
+    implements StructuredSerializer<GCreateSpaceshipData> {
   @override
   final Iterable<Type> types = const [
-    GUpdateSpaceshipData,
-    _$GUpdateSpaceshipData
+    GCreateSpaceshipData,
+    _$GCreateSpaceshipData
   ];
   @override
-  final String wireName = 'GUpdateSpaceshipData';
+  final String wireName = 'GCreateSpaceshipData';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, GUpdateSpaceshipData object,
+      Serializers serializers, GCreateSpaceshipData object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       '__typename',
       serializers.serialize(object.G__typename,
           specifiedType: const FullType(String)),
+      'createSpaceship',
+      serializers.serialize(object.createSpaceship,
+          specifiedType: const FullType(GCreateSpaceshipData_createSpaceship)),
     ];
-    if (object.updateSpaceship != null) {
-      result
-        ..add('updateSpaceship')
-        ..add(serializers.serialize(object.updateSpaceship,
-            specifiedType:
-                const FullType(GUpdateSpaceshipData_updateSpaceship)));
-    }
+
     return result;
   }
 
   @override
-  GUpdateSpaceshipData deserialize(
+  GCreateSpaceshipData deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateSpaceshipDataBuilder();
+    final result = new GCreateSpaceshipDataBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -348,11 +345,11 @@ class _$GUpdateSpaceshipDataSerializer
           result.G__typename = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'updateSpaceship':
-          result.updateSpaceship.replace(serializers.deserialize(value,
+        case 'createSpaceship':
+          result.createSpaceship.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(GUpdateSpaceshipData_updateSpaceship))
-              as GUpdateSpaceshipData_updateSpaceship);
+                      const FullType(GCreateSpaceshipData_createSpaceship))
+              as GCreateSpaceshipData_createSpaceship);
           break;
       }
     }
@@ -361,19 +358,19 @@ class _$GUpdateSpaceshipDataSerializer
   }
 }
 
-class _$GUpdateSpaceshipData_updateSpaceshipSerializer
-    implements StructuredSerializer<GUpdateSpaceshipData_updateSpaceship> {
+class _$GCreateSpaceshipData_createSpaceshipSerializer
+    implements StructuredSerializer<GCreateSpaceshipData_createSpaceship> {
   @override
   final Iterable<Type> types = const [
-    GUpdateSpaceshipData_updateSpaceship,
-    _$GUpdateSpaceshipData_updateSpaceship
+    GCreateSpaceshipData_createSpaceship,
+    _$GCreateSpaceshipData_createSpaceship
   ];
   @override
-  final String wireName = 'GUpdateSpaceshipData_updateSpaceship';
+  final String wireName = 'GCreateSpaceshipData_createSpaceship';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, GUpdateSpaceshipData_updateSpaceship object,
+      Serializers serializers, GCreateSpaceshipData_createSpaceship object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       '__typename',
@@ -389,10 +386,10 @@ class _$GUpdateSpaceshipData_updateSpaceshipSerializer
   }
 
   @override
-  GUpdateSpaceshipData_updateSpaceship deserialize(
+  GCreateSpaceshipData_createSpaceship deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateSpaceshipData_updateSpaceshipBuilder();
+    final result = new GCreateSpaceshipData_createSpaceshipBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -1001,112 +998,116 @@ class GGetSpaceshipData_findSpaceshipByIDBuilder
   }
 }
 
-class _$GUpdateSpaceshipData extends GUpdateSpaceshipData {
+class _$GCreateSpaceshipData extends GCreateSpaceshipData {
   @override
   final String G__typename;
   @override
-  final GUpdateSpaceshipData_updateSpaceship updateSpaceship;
+  final GCreateSpaceshipData_createSpaceship createSpaceship;
 
-  factory _$GUpdateSpaceshipData(
-          [void Function(GUpdateSpaceshipDataBuilder) updates]) =>
-      (new GUpdateSpaceshipDataBuilder()..update(updates)).build();
+  factory _$GCreateSpaceshipData(
+          [void Function(GCreateSpaceshipDataBuilder) updates]) =>
+      (new GCreateSpaceshipDataBuilder()..update(updates)).build();
 
-  _$GUpdateSpaceshipData._({this.G__typename, this.updateSpaceship})
+  _$GCreateSpaceshipData._({this.G__typename, this.createSpaceship})
       : super._() {
     if (G__typename == null) {
-      throw new BuiltValueNullFieldError('GUpdateSpaceshipData', 'G__typename');
+      throw new BuiltValueNullFieldError('GCreateSpaceshipData', 'G__typename');
+    }
+    if (createSpaceship == null) {
+      throw new BuiltValueNullFieldError(
+          'GCreateSpaceshipData', 'createSpaceship');
     }
   }
 
   @override
-  GUpdateSpaceshipData rebuild(
-          void Function(GUpdateSpaceshipDataBuilder) updates) =>
+  GCreateSpaceshipData rebuild(
+          void Function(GCreateSpaceshipDataBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateSpaceshipDataBuilder toBuilder() =>
-      new GUpdateSpaceshipDataBuilder()..replace(this);
+  GCreateSpaceshipDataBuilder toBuilder() =>
+      new GCreateSpaceshipDataBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateSpaceshipData &&
+    return other is GCreateSpaceshipData &&
         G__typename == other.G__typename &&
-        updateSpaceship == other.updateSpaceship;
+        createSpaceship == other.createSpaceship;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, G__typename.hashCode), updateSpaceship.hashCode));
+    return $jf($jc($jc(0, G__typename.hashCode), createSpaceship.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GUpdateSpaceshipData')
+    return (newBuiltValueToStringHelper('GCreateSpaceshipData')
           ..add('G__typename', G__typename)
-          ..add('updateSpaceship', updateSpaceship))
+          ..add('createSpaceship', createSpaceship))
         .toString();
   }
 }
 
-class GUpdateSpaceshipDataBuilder
-    implements Builder<GUpdateSpaceshipData, GUpdateSpaceshipDataBuilder> {
-  _$GUpdateSpaceshipData _$v;
+class GCreateSpaceshipDataBuilder
+    implements Builder<GCreateSpaceshipData, GCreateSpaceshipDataBuilder> {
+  _$GCreateSpaceshipData _$v;
 
   String _G__typename;
   String get G__typename => _$this._G__typename;
   set G__typename(String G__typename) => _$this._G__typename = G__typename;
 
-  GUpdateSpaceshipData_updateSpaceshipBuilder _updateSpaceship;
-  GUpdateSpaceshipData_updateSpaceshipBuilder get updateSpaceship =>
-      _$this._updateSpaceship ??=
-          new GUpdateSpaceshipData_updateSpaceshipBuilder();
-  set updateSpaceship(
-          GUpdateSpaceshipData_updateSpaceshipBuilder updateSpaceship) =>
-      _$this._updateSpaceship = updateSpaceship;
+  GCreateSpaceshipData_createSpaceshipBuilder _createSpaceship;
+  GCreateSpaceshipData_createSpaceshipBuilder get createSpaceship =>
+      _$this._createSpaceship ??=
+          new GCreateSpaceshipData_createSpaceshipBuilder();
+  set createSpaceship(
+          GCreateSpaceshipData_createSpaceshipBuilder createSpaceship) =>
+      _$this._createSpaceship = createSpaceship;
 
-  GUpdateSpaceshipDataBuilder() {
-    GUpdateSpaceshipData._initializeBuilder(this);
+  GCreateSpaceshipDataBuilder() {
+    GCreateSpaceshipData._initializeBuilder(this);
   }
 
-  GUpdateSpaceshipDataBuilder get _$this {
+  GCreateSpaceshipDataBuilder get _$this {
     if (_$v != null) {
       _G__typename = _$v.G__typename;
-      _updateSpaceship = _$v.updateSpaceship?.toBuilder();
+      _createSpaceship = _$v.createSpaceship?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(GUpdateSpaceshipData other) {
+  void replace(GCreateSpaceshipData other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GUpdateSpaceshipData;
+    _$v = other as _$GCreateSpaceshipData;
   }
 
   @override
-  void update(void Function(GUpdateSpaceshipDataBuilder) updates) {
+  void update(void Function(GCreateSpaceshipDataBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GUpdateSpaceshipData build() {
-    _$GUpdateSpaceshipData _$result;
+  _$GCreateSpaceshipData build() {
+    _$GCreateSpaceshipData _$result;
     try {
       _$result = _$v ??
-          new _$GUpdateSpaceshipData._(
+          new _$GCreateSpaceshipData._(
               G__typename: G__typename,
-              updateSpaceship: _updateSpaceship?.build());
+              createSpaceship: createSpaceship.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'updateSpaceship';
-        _updateSpaceship?.build();
+        _$failedField = 'createSpaceship';
+        createSpaceship.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GUpdateSpaceshipData', _$failedField, e.toString());
+            'GCreateSpaceshipData', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -1115,8 +1116,8 @@ class GUpdateSpaceshipDataBuilder
   }
 }
 
-class _$GUpdateSpaceshipData_updateSpaceship
-    extends GUpdateSpaceshipData_updateSpaceship {
+class _$GCreateSpaceshipData_createSpaceship
+    extends GCreateSpaceshipData_createSpaceship {
   @override
   final String G__typename;
   @override
@@ -1124,42 +1125,42 @@ class _$GUpdateSpaceshipData_updateSpaceship
   @override
   final String name;
 
-  factory _$GUpdateSpaceshipData_updateSpaceship(
-          [void Function(GUpdateSpaceshipData_updateSpaceshipBuilder)
+  factory _$GCreateSpaceshipData_createSpaceship(
+          [void Function(GCreateSpaceshipData_createSpaceshipBuilder)
               updates]) =>
-      (new GUpdateSpaceshipData_updateSpaceshipBuilder()..update(updates))
+      (new GCreateSpaceshipData_createSpaceshipBuilder()..update(updates))
           .build();
 
-  _$GUpdateSpaceshipData_updateSpaceship._(
+  _$GCreateSpaceshipData_createSpaceship._(
       {this.G__typename, this.G_id, this.name})
       : super._() {
     if (G__typename == null) {
       throw new BuiltValueNullFieldError(
-          'GUpdateSpaceshipData_updateSpaceship', 'G__typename');
+          'GCreateSpaceshipData_createSpaceship', 'G__typename');
     }
     if (G_id == null) {
       throw new BuiltValueNullFieldError(
-          'GUpdateSpaceshipData_updateSpaceship', 'G_id');
+          'GCreateSpaceshipData_createSpaceship', 'G_id');
     }
     if (name == null) {
       throw new BuiltValueNullFieldError(
-          'GUpdateSpaceshipData_updateSpaceship', 'name');
+          'GCreateSpaceshipData_createSpaceship', 'name');
     }
   }
 
   @override
-  GUpdateSpaceshipData_updateSpaceship rebuild(
-          void Function(GUpdateSpaceshipData_updateSpaceshipBuilder) updates) =>
+  GCreateSpaceshipData_createSpaceship rebuild(
+          void Function(GCreateSpaceshipData_createSpaceshipBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateSpaceshipData_updateSpaceshipBuilder toBuilder() =>
-      new GUpdateSpaceshipData_updateSpaceshipBuilder()..replace(this);
+  GCreateSpaceshipData_createSpaceshipBuilder toBuilder() =>
+      new GCreateSpaceshipData_createSpaceshipBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is GUpdateSpaceshipData_updateSpaceship &&
+    return other is GCreateSpaceshipData_createSpaceship &&
         G__typename == other.G__typename &&
         G_id == other.G_id &&
         name == other.name;
@@ -1173,7 +1174,7 @@ class _$GUpdateSpaceshipData_updateSpaceship
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GUpdateSpaceshipData_updateSpaceship')
+    return (newBuiltValueToStringHelper('GCreateSpaceshipData_createSpaceship')
           ..add('G__typename', G__typename)
           ..add('G_id', G_id)
           ..add('name', name))
@@ -1181,11 +1182,11 @@ class _$GUpdateSpaceshipData_updateSpaceship
   }
 }
 
-class GUpdateSpaceshipData_updateSpaceshipBuilder
+class GCreateSpaceshipData_createSpaceshipBuilder
     implements
-        Builder<GUpdateSpaceshipData_updateSpaceship,
-            GUpdateSpaceshipData_updateSpaceshipBuilder> {
-  _$GUpdateSpaceshipData_updateSpaceship _$v;
+        Builder<GCreateSpaceshipData_createSpaceship,
+            GCreateSpaceshipData_createSpaceshipBuilder> {
+  _$GCreateSpaceshipData_createSpaceship _$v;
 
   String _G__typename;
   String get G__typename => _$this._G__typename;
@@ -1199,11 +1200,11 @@ class GUpdateSpaceshipData_updateSpaceshipBuilder
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
-  GUpdateSpaceshipData_updateSpaceshipBuilder() {
-    GUpdateSpaceshipData_updateSpaceship._initializeBuilder(this);
+  GCreateSpaceshipData_createSpaceshipBuilder() {
+    GCreateSpaceshipData_createSpaceship._initializeBuilder(this);
   }
 
-  GUpdateSpaceshipData_updateSpaceshipBuilder get _$this {
+  GCreateSpaceshipData_createSpaceshipBuilder get _$this {
     if (_$v != null) {
       _G__typename = _$v.G__typename;
       _G_id = _$v.G_id;
@@ -1214,23 +1215,23 @@ class GUpdateSpaceshipData_updateSpaceshipBuilder
   }
 
   @override
-  void replace(GUpdateSpaceshipData_updateSpaceship other) {
+  void replace(GCreateSpaceshipData_createSpaceship other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GUpdateSpaceshipData_updateSpaceship;
+    _$v = other as _$GCreateSpaceshipData_createSpaceship;
   }
 
   @override
   void update(
-      void Function(GUpdateSpaceshipData_updateSpaceshipBuilder) updates) {
+      void Function(GCreateSpaceshipData_createSpaceshipBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GUpdateSpaceshipData_updateSpaceship build() {
+  _$GCreateSpaceshipData_createSpaceship build() {
     final _$result = _$v ??
-        new _$GUpdateSpaceshipData_updateSpaceship._(
+        new _$GCreateSpaceshipData_createSpaceship._(
             G__typename: G__typename, G_id: G_id, name: name);
     replace(_$result);
     return _$result;

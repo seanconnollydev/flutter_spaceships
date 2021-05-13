@@ -128,52 +128,51 @@ abstract class GGetSpaceshipData_findSpaceshipByID
           GGetSpaceshipData_findSpaceshipByID.serializer, json);
 }
 
-abstract class GUpdateSpaceshipData
-    implements Built<GUpdateSpaceshipData, GUpdateSpaceshipDataBuilder> {
-  GUpdateSpaceshipData._();
+abstract class GCreateSpaceshipData
+    implements Built<GCreateSpaceshipData, GCreateSpaceshipDataBuilder> {
+  GCreateSpaceshipData._();
 
-  factory GUpdateSpaceshipData(
-          [Function(GUpdateSpaceshipDataBuilder b) updates]) =
-      _$GUpdateSpaceshipData;
+  factory GCreateSpaceshipData(
+          [Function(GCreateSpaceshipDataBuilder b) updates]) =
+      _$GCreateSpaceshipData;
 
-  static void _initializeBuilder(GUpdateSpaceshipDataBuilder b) =>
+  static void _initializeBuilder(GCreateSpaceshipDataBuilder b) =>
       b..G__typename = 'Mutation';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
-  @nullable
-  GUpdateSpaceshipData_updateSpaceship get updateSpaceship;
-  static Serializer<GUpdateSpaceshipData> get serializer =>
-      _$gUpdateSpaceshipDataSerializer;
+  GCreateSpaceshipData_createSpaceship get createSpaceship;
+  static Serializer<GCreateSpaceshipData> get serializer =>
+      _$gCreateSpaceshipDataSerializer;
   Map<String, dynamic> toJson() =>
-      _i1.serializers.serializeWith(GUpdateSpaceshipData.serializer, this);
-  static GUpdateSpaceshipData fromJson(Map<String, dynamic> json) =>
-      _i1.serializers.deserializeWith(GUpdateSpaceshipData.serializer, json);
+      _i1.serializers.serializeWith(GCreateSpaceshipData.serializer, this);
+  static GCreateSpaceshipData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GCreateSpaceshipData.serializer, json);
 }
 
-abstract class GUpdateSpaceshipData_updateSpaceship
+abstract class GCreateSpaceshipData_createSpaceship
     implements
-        Built<GUpdateSpaceshipData_updateSpaceship,
-            GUpdateSpaceshipData_updateSpaceshipBuilder> {
-  GUpdateSpaceshipData_updateSpaceship._();
+        Built<GCreateSpaceshipData_createSpaceship,
+            GCreateSpaceshipData_createSpaceshipBuilder> {
+  GCreateSpaceshipData_createSpaceship._();
 
-  factory GUpdateSpaceshipData_updateSpaceship(
-          [Function(GUpdateSpaceshipData_updateSpaceshipBuilder b) updates]) =
-      _$GUpdateSpaceshipData_updateSpaceship;
+  factory GCreateSpaceshipData_createSpaceship(
+          [Function(GCreateSpaceshipData_createSpaceshipBuilder b) updates]) =
+      _$GCreateSpaceshipData_createSpaceship;
 
   static void _initializeBuilder(
-          GUpdateSpaceshipData_updateSpaceshipBuilder b) =>
+          GCreateSpaceshipData_createSpaceshipBuilder b) =>
       b..G__typename = 'Spaceship';
   @BuiltValueField(wireName: '__typename')
   String get G__typename;
   @BuiltValueField(wireName: '_id')
   String get G_id;
   String get name;
-  static Serializer<GUpdateSpaceshipData_updateSpaceship> get serializer =>
-      _$gUpdateSpaceshipDataUpdateSpaceshipSerializer;
+  static Serializer<GCreateSpaceshipData_createSpaceship> get serializer =>
+      _$gCreateSpaceshipDataCreateSpaceshipSerializer;
   Map<String, dynamic> toJson() => _i1.serializers
-      .serializeWith(GUpdateSpaceshipData_updateSpaceship.serializer, this);
-  static GUpdateSpaceshipData_updateSpaceship fromJson(
+      .serializeWith(GCreateSpaceshipData_createSpaceship.serializer, this);
+  static GCreateSpaceshipData_createSpaceship fromJson(
           Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(
-          GUpdateSpaceshipData_updateSpaceship.serializer, json);
+          GCreateSpaceshipData_createSpaceship.serializer, json);
 }

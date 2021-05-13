@@ -14,8 +14,8 @@ query GetSpaceship($id: ID!) {
   }
 }
 
-mutation UpdateSpaceship($id: ID!, $data: SpaceshipInput!) {
-  updateSpaceship(id: $id, data: $data) {
+mutation CreateSpaceship($data: SpaceshipInput!) {
+  createSpaceship(data: $data) {
     _id
     name
   }

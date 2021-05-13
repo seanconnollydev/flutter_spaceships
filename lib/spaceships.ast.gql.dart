@@ -72,16 +72,10 @@ const GetSpaceship = _i1.OperationDefinitionNode(
                 selectionSet: null)
           ]))
     ]));
-const UpdateSpaceship = _i1.OperationDefinitionNode(
+const CreateSpaceship = _i1.OperationDefinitionNode(
     type: _i1.OperationType.mutation,
-    name: _i1.NameNode(value: 'UpdateSpaceship'),
+    name: _i1.NameNode(value: 'CreateSpaceship'),
     variableDefinitions: [
-      _i1.VariableDefinitionNode(
-          variable: _i1.VariableNode(name: _i1.NameNode(value: 'id')),
-          type: _i1.NamedTypeNode(
-              name: _i1.NameNode(value: 'ID'), isNonNull: true),
-          defaultValue: _i1.DefaultValueNode(value: null),
-          directives: []),
       _i1.VariableDefinitionNode(
           variable: _i1.VariableNode(name: _i1.NameNode(value: 'data')),
           type: _i1.NamedTypeNode(
@@ -92,12 +86,9 @@ const UpdateSpaceship = _i1.OperationDefinitionNode(
     directives: [],
     selectionSet: _i1.SelectionSetNode(selections: [
       _i1.FieldNode(
-          name: _i1.NameNode(value: 'updateSpaceship'),
+          name: _i1.NameNode(value: 'createSpaceship'),
           alias: null,
           arguments: [
-            _i1.ArgumentNode(
-                name: _i1.NameNode(value: 'id'),
-                value: _i1.VariableNode(name: _i1.NameNode(value: 'id'))),
             _i1.ArgumentNode(
                 name: _i1.NameNode(value: 'data'),
                 value: _i1.VariableNode(name: _i1.NameNode(value: 'data')))
@@ -119,4 +110,4 @@ const UpdateSpaceship = _i1.OperationDefinitionNode(
           ]))
     ]));
 const document = _i1.DocumentNode(
-    definitions: [GetSpaceships, GetSpaceship, UpdateSpaceship]);
+    definitions: [GetSpaceships, GetSpaceship, CreateSpaceship]);

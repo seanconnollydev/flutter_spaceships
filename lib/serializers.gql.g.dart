@@ -7,6 +7,10 @@ part of 'serializers.gql.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(GCreateSpaceshipData.serializer)
+      ..add(GCreateSpaceshipData_createSpaceship.serializer)
+      ..add(GCreateSpaceshipReq.serializer)
+      ..add(GCreateSpaceshipVars.serializer)
       ..add(GDate.serializer)
       ..add(GGetSpaceshipData.serializer)
       ..add(GGetSpaceshipData_findSpaceshipByID.serializer)
@@ -20,10 +24,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GLong.serializer)
       ..add(GSpaceshipInput.serializer)
       ..add(GTime.serializer)
-      ..add(GUpdateSpaceshipData.serializer)
-      ..add(GUpdateSpaceshipData_updateSpaceship.serializer)
-      ..add(GUpdateSpaceshipReq.serializer)
-      ..add(GUpdateSpaceshipVars.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList,
               const [const FullType(GGetSpaceshipsData_spaceships_data)]),

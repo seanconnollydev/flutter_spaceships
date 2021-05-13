@@ -10,8 +10,8 @@ Serializer<GGetSpaceshipsReq> _$gGetSpaceshipsReqSerializer =
     new _$GGetSpaceshipsReqSerializer();
 Serializer<GGetSpaceshipReq> _$gGetSpaceshipReqSerializer =
     new _$GGetSpaceshipReqSerializer();
-Serializer<GUpdateSpaceshipReq> _$gUpdateSpaceshipReqSerializer =
-    new _$GUpdateSpaceshipReqSerializer();
+Serializer<GCreateSpaceshipReq> _$gCreateSpaceshipReqSerializer =
+    new _$GCreateSpaceshipReqSerializer();
 
 class _$GGetSpaceshipsReqSerializer
     implements StructuredSerializer<GGetSpaceshipsReq> {
@@ -243,24 +243,24 @@ class _$GGetSpaceshipReqSerializer
   }
 }
 
-class _$GUpdateSpaceshipReqSerializer
-    implements StructuredSerializer<GUpdateSpaceshipReq> {
+class _$GCreateSpaceshipReqSerializer
+    implements StructuredSerializer<GCreateSpaceshipReq> {
   @override
   final Iterable<Type> types = const [
-    GUpdateSpaceshipReq,
-    _$GUpdateSpaceshipReq
+    GCreateSpaceshipReq,
+    _$GCreateSpaceshipReq
   ];
   @override
-  final String wireName = 'GUpdateSpaceshipReq';
+  final String wireName = 'GCreateSpaceshipReq';
 
   @override
   Iterable<Object> serialize(
-      Serializers serializers, GUpdateSpaceshipReq object,
+      Serializers serializers, GCreateSpaceshipReq object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'vars',
       serializers.serialize(object.vars,
-          specifiedType: const FullType(_i3.GUpdateSpaceshipVars)),
+          specifiedType: const FullType(_i3.GCreateSpaceshipVars)),
       'operation',
       serializers.serialize(object.operation,
           specifiedType: const FullType(_i4.Operation)),
@@ -275,7 +275,7 @@ class _$GUpdateSpaceshipReqSerializer
       result
         ..add('optimisticResponse')
         ..add(serializers.serialize(object.optimisticResponse,
-            specifiedType: const FullType(_i2.GUpdateSpaceshipData)));
+            specifiedType: const FullType(_i2.GCreateSpaceshipData)));
     }
     if (object.updateCacheHandlerKey != null) {
       result
@@ -306,10 +306,10 @@ class _$GUpdateSpaceshipReqSerializer
   }
 
   @override
-  GUpdateSpaceshipReq deserialize(
+  GCreateSpaceshipReq deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new GUpdateSpaceshipReqBuilder();
+    final result = new GCreateSpaceshipReqBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -319,8 +319,8 @@ class _$GUpdateSpaceshipReqSerializer
       switch (key) {
         case 'vars':
           result.vars.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i3.GUpdateSpaceshipVars))
-              as _i3.GUpdateSpaceshipVars);
+                  specifiedType: const FullType(_i3.GCreateSpaceshipVars))
+              as _i3.GCreateSpaceshipVars);
           break;
         case 'operation':
           result.operation = serializers.deserialize(value,
@@ -332,8 +332,8 @@ class _$GUpdateSpaceshipReqSerializer
           break;
         case 'optimisticResponse':
           result.optimisticResponse.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(_i2.GUpdateSpaceshipData))
-              as _i2.GUpdateSpaceshipData);
+                  specifiedType: const FullType(_i2.GCreateSpaceshipData))
+              as _i2.GCreateSpaceshipData);
           break;
         case 'updateCacheHandlerKey':
           result.updateCacheHandlerKey = serializers.deserialize(value,
@@ -811,18 +811,18 @@ class GGetSpaceshipReqBuilder
   }
 }
 
-class _$GUpdateSpaceshipReq extends GUpdateSpaceshipReq {
+class _$GCreateSpaceshipReq extends GCreateSpaceshipReq {
   @override
-  final _i3.GUpdateSpaceshipVars vars;
+  final _i3.GCreateSpaceshipVars vars;
   @override
   final _i4.Operation operation;
   @override
   final String requestId;
   @override
-  final _i2.GUpdateSpaceshipData Function(
-      _i2.GUpdateSpaceshipData, _i2.GUpdateSpaceshipData) updateResult;
+  final _i2.GCreateSpaceshipData Function(
+      _i2.GCreateSpaceshipData, _i2.GCreateSpaceshipData) updateResult;
   @override
-  final _i2.GUpdateSpaceshipData optimisticResponse;
+  final _i2.GCreateSpaceshipData optimisticResponse;
   @override
   final String updateCacheHandlerKey;
   @override
@@ -832,11 +832,11 @@ class _$GUpdateSpaceshipReq extends GUpdateSpaceshipReq {
   @override
   final bool executeOnListen;
 
-  factory _$GUpdateSpaceshipReq(
-          [void Function(GUpdateSpaceshipReqBuilder) updates]) =>
-      (new GUpdateSpaceshipReqBuilder()..update(updates)).build();
+  factory _$GCreateSpaceshipReq(
+          [void Function(GCreateSpaceshipReqBuilder) updates]) =>
+      (new GCreateSpaceshipReqBuilder()..update(updates)).build();
 
-  _$GUpdateSpaceshipReq._(
+  _$GCreateSpaceshipReq._(
       {this.vars,
       this.operation,
       this.requestId,
@@ -848,27 +848,27 @@ class _$GUpdateSpaceshipReq extends GUpdateSpaceshipReq {
       this.executeOnListen})
       : super._() {
     if (vars == null) {
-      throw new BuiltValueNullFieldError('GUpdateSpaceshipReq', 'vars');
+      throw new BuiltValueNullFieldError('GCreateSpaceshipReq', 'vars');
     }
     if (operation == null) {
-      throw new BuiltValueNullFieldError('GUpdateSpaceshipReq', 'operation');
+      throw new BuiltValueNullFieldError('GCreateSpaceshipReq', 'operation');
     }
   }
 
   @override
-  GUpdateSpaceshipReq rebuild(
-          void Function(GUpdateSpaceshipReqBuilder) updates) =>
+  GCreateSpaceshipReq rebuild(
+          void Function(GCreateSpaceshipReqBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  GUpdateSpaceshipReqBuilder toBuilder() =>
-      new GUpdateSpaceshipReqBuilder()..replace(this);
+  GCreateSpaceshipReqBuilder toBuilder() =>
+      new GCreateSpaceshipReqBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     final dynamic _$dynamicOther = other;
-    return other is GUpdateSpaceshipReq &&
+    return other is GCreateSpaceshipReq &&
         vars == other.vars &&
         operation == other.operation &&
         requestId == other.requestId &&
@@ -900,7 +900,7 @@ class _$GUpdateSpaceshipReq extends GUpdateSpaceshipReq {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('GUpdateSpaceshipReq')
+    return (newBuiltValueToStringHelper('GCreateSpaceshipReq')
           ..add('vars', vars)
           ..add('operation', operation)
           ..add('requestId', requestId)
@@ -914,14 +914,14 @@ class _$GUpdateSpaceshipReq extends GUpdateSpaceshipReq {
   }
 }
 
-class GUpdateSpaceshipReqBuilder
-    implements Builder<GUpdateSpaceshipReq, GUpdateSpaceshipReqBuilder> {
-  _$GUpdateSpaceshipReq _$v;
+class GCreateSpaceshipReqBuilder
+    implements Builder<GCreateSpaceshipReq, GCreateSpaceshipReqBuilder> {
+  _$GCreateSpaceshipReq _$v;
 
-  _i3.GUpdateSpaceshipVarsBuilder _vars;
-  _i3.GUpdateSpaceshipVarsBuilder get vars =>
-      _$this._vars ??= new _i3.GUpdateSpaceshipVarsBuilder();
-  set vars(_i3.GUpdateSpaceshipVarsBuilder vars) => _$this._vars = vars;
+  _i3.GCreateSpaceshipVarsBuilder _vars;
+  _i3.GCreateSpaceshipVarsBuilder get vars =>
+      _$this._vars ??= new _i3.GCreateSpaceshipVarsBuilder();
+  set vars(_i3.GCreateSpaceshipVarsBuilder vars) => _$this._vars = vars;
 
   _i4.Operation _operation;
   _i4.Operation get operation => _$this._operation;
@@ -931,21 +931,21 @@ class GUpdateSpaceshipReqBuilder
   String get requestId => _$this._requestId;
   set requestId(String requestId) => _$this._requestId = requestId;
 
-  _i2.GUpdateSpaceshipData Function(
-      _i2.GUpdateSpaceshipData, _i2.GUpdateSpaceshipData) _updateResult;
-  _i2.GUpdateSpaceshipData Function(
-          _i2.GUpdateSpaceshipData, _i2.GUpdateSpaceshipData)
+  _i2.GCreateSpaceshipData Function(
+      _i2.GCreateSpaceshipData, _i2.GCreateSpaceshipData) _updateResult;
+  _i2.GCreateSpaceshipData Function(
+          _i2.GCreateSpaceshipData, _i2.GCreateSpaceshipData)
       get updateResult => _$this._updateResult;
   set updateResult(
-          _i2.GUpdateSpaceshipData Function(
-                  _i2.GUpdateSpaceshipData, _i2.GUpdateSpaceshipData)
+          _i2.GCreateSpaceshipData Function(
+                  _i2.GCreateSpaceshipData, _i2.GCreateSpaceshipData)
               updateResult) =>
       _$this._updateResult = updateResult;
 
-  _i2.GUpdateSpaceshipDataBuilder _optimisticResponse;
-  _i2.GUpdateSpaceshipDataBuilder get optimisticResponse =>
-      _$this._optimisticResponse ??= new _i2.GUpdateSpaceshipDataBuilder();
-  set optimisticResponse(_i2.GUpdateSpaceshipDataBuilder optimisticResponse) =>
+  _i2.GCreateSpaceshipDataBuilder _optimisticResponse;
+  _i2.GCreateSpaceshipDataBuilder get optimisticResponse =>
+      _$this._optimisticResponse ??= new _i2.GCreateSpaceshipDataBuilder();
+  set optimisticResponse(_i2.GCreateSpaceshipDataBuilder optimisticResponse) =>
       _$this._optimisticResponse = optimisticResponse;
 
   String _updateCacheHandlerKey;
@@ -970,11 +970,11 @@ class GUpdateSpaceshipReqBuilder
   set executeOnListen(bool executeOnListen) =>
       _$this._executeOnListen = executeOnListen;
 
-  GUpdateSpaceshipReqBuilder() {
-    GUpdateSpaceshipReq._initializeBuilder(this);
+  GCreateSpaceshipReqBuilder() {
+    GCreateSpaceshipReq._initializeBuilder(this);
   }
 
-  GUpdateSpaceshipReqBuilder get _$this {
+  GCreateSpaceshipReqBuilder get _$this {
     if (_$v != null) {
       _vars = _$v.vars?.toBuilder();
       _operation = _$v.operation;
@@ -991,24 +991,24 @@ class GUpdateSpaceshipReqBuilder
   }
 
   @override
-  void replace(GUpdateSpaceshipReq other) {
+  void replace(GCreateSpaceshipReq other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$GUpdateSpaceshipReq;
+    _$v = other as _$GCreateSpaceshipReq;
   }
 
   @override
-  void update(void Function(GUpdateSpaceshipReqBuilder) updates) {
+  void update(void Function(GCreateSpaceshipReqBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$GUpdateSpaceshipReq build() {
-    _$GUpdateSpaceshipReq _$result;
+  _$GCreateSpaceshipReq build() {
+    _$GCreateSpaceshipReq _$result;
     try {
       _$result = _$v ??
-          new _$GUpdateSpaceshipReq._(
+          new _$GCreateSpaceshipReq._(
               vars: vars.build(),
               operation: operation,
               requestId: requestId,
@@ -1028,7 +1028,7 @@ class GUpdateSpaceshipReqBuilder
         _optimisticResponse?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'GUpdateSpaceshipReq', _$failedField, e.toString());
+            'GCreateSpaceshipReq', _$failedField, e.toString());
       }
       rethrow;
     }
