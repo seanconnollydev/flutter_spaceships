@@ -54,3 +54,21 @@ abstract class GCreateSpaceshipVars
   static GCreateSpaceshipVars fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GCreateSpaceshipVars.serializer, json);
 }
+
+abstract class GUpdateSpaceshipVars
+    implements Built<GUpdateSpaceshipVars, GUpdateSpaceshipVarsBuilder> {
+  GUpdateSpaceshipVars._();
+
+  factory GUpdateSpaceshipVars(
+          [Function(GUpdateSpaceshipVarsBuilder b) updates]) =
+      _$GUpdateSpaceshipVars;
+
+  String get id;
+  _i2.GSpaceshipInput get data;
+  static Serializer<GUpdateSpaceshipVars> get serializer =>
+      _$gUpdateSpaceshipVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GUpdateSpaceshipVars.serializer, this);
+  static GUpdateSpaceshipVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GUpdateSpaceshipVars.serializer, json);
+}

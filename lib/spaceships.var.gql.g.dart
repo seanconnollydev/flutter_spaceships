@@ -12,6 +12,8 @@ Serializer<GGetSpaceshipVars> _$gGetSpaceshipVarsSerializer =
     new _$GGetSpaceshipVarsSerializer();
 Serializer<GCreateSpaceshipVars> _$gCreateSpaceshipVarsSerializer =
     new _$GCreateSpaceshipVarsSerializer();
+Serializer<GUpdateSpaceshipVars> _$gUpdateSpaceshipVarsSerializer =
+    new _$GUpdateSpaceshipVarsSerializer();
 
 class _$GGetSpaceshipsVarsSerializer
     implements StructuredSerializer<GGetSpaceshipsVars> {
@@ -110,6 +112,59 @@ class _$GCreateSpaceshipVarsSerializer
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
+        case 'data':
+          result.data.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(_i2.GSpaceshipInput))
+              as _i2.GSpaceshipInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GUpdateSpaceshipVarsSerializer
+    implements StructuredSerializer<GUpdateSpaceshipVars> {
+  @override
+  final Iterable<Type> types = const [
+    GUpdateSpaceshipVars,
+    _$GUpdateSpaceshipVars
+  ];
+  @override
+  final String wireName = 'GUpdateSpaceshipVars';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GUpdateSpaceshipVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'data',
+      serializers.serialize(object.data,
+          specifiedType: const FullType(_i2.GSpaceshipInput)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GUpdateSpaceshipVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GUpdateSpaceshipVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'data':
           result.data.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i2.GSpaceshipInput))
@@ -348,6 +403,115 @@ class GCreateSpaceshipVarsBuilder
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'GCreateSpaceshipVars', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GUpdateSpaceshipVars extends GUpdateSpaceshipVars {
+  @override
+  final String id;
+  @override
+  final _i2.GSpaceshipInput data;
+
+  factory _$GUpdateSpaceshipVars(
+          [void Function(GUpdateSpaceshipVarsBuilder) updates]) =>
+      (new GUpdateSpaceshipVarsBuilder()..update(updates)).build();
+
+  _$GUpdateSpaceshipVars._({this.id, this.data}) : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('GUpdateSpaceshipVars', 'id');
+    }
+    if (data == null) {
+      throw new BuiltValueNullFieldError('GUpdateSpaceshipVars', 'data');
+    }
+  }
+
+  @override
+  GUpdateSpaceshipVars rebuild(
+          void Function(GUpdateSpaceshipVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GUpdateSpaceshipVarsBuilder toBuilder() =>
+      new GUpdateSpaceshipVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GUpdateSpaceshipVars &&
+        id == other.id &&
+        data == other.data;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, id.hashCode), data.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GUpdateSpaceshipVars')
+          ..add('id', id)
+          ..add('data', data))
+        .toString();
+  }
+}
+
+class GUpdateSpaceshipVarsBuilder
+    implements Builder<GUpdateSpaceshipVars, GUpdateSpaceshipVarsBuilder> {
+  _$GUpdateSpaceshipVars _$v;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
+
+  _i2.GSpaceshipInputBuilder _data;
+  _i2.GSpaceshipInputBuilder get data =>
+      _$this._data ??= new _i2.GSpaceshipInputBuilder();
+  set data(_i2.GSpaceshipInputBuilder data) => _$this._data = data;
+
+  GUpdateSpaceshipVarsBuilder();
+
+  GUpdateSpaceshipVarsBuilder get _$this {
+    if (_$v != null) {
+      _id = _$v.id;
+      _data = _$v.data?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GUpdateSpaceshipVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GUpdateSpaceshipVars;
+  }
+
+  @override
+  void update(void Function(GUpdateSpaceshipVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GUpdateSpaceshipVars build() {
+    _$GUpdateSpaceshipVars _$result;
+    try {
+      _$result =
+          _$v ?? new _$GUpdateSpaceshipVars._(id: id, data: data.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'data';
+        data.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GUpdateSpaceshipVars', _$failedField, e.toString());
       }
       rethrow;
     }

@@ -143,3 +143,48 @@ abstract class GCreateSpaceshipReq
   static GCreateSpaceshipReq fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GCreateSpaceshipReq.serializer, json);
 }
+
+abstract class GUpdateSpaceshipReq
+    implements
+        Built<GUpdateSpaceshipReq, GUpdateSpaceshipReqBuilder>,
+        _i1.OperationRequest<_i2.GUpdateSpaceshipData,
+            _i3.GUpdateSpaceshipVars> {
+  GUpdateSpaceshipReq._();
+
+  factory GUpdateSpaceshipReq(
+      [Function(GUpdateSpaceshipReqBuilder b) updates]) = _$GUpdateSpaceshipReq;
+
+  static void _initializeBuilder(GUpdateSpaceshipReqBuilder b) => b
+    ..operation =
+        _i4.Operation(document: _i5.document, operationName: 'UpdateSpaceship')
+    ..executeOnListen = true;
+  _i3.GUpdateSpaceshipVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GUpdateSpaceshipData Function(
+      _i2.GUpdateSpaceshipData, _i2.GUpdateSpaceshipData) get updateResult;
+  @nullable
+  _i2.GUpdateSpaceshipData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GUpdateSpaceshipData parseData(Map<String, dynamic> json) =>
+      _i2.GUpdateSpaceshipData.fromJson(json);
+  static Serializer<GUpdateSpaceshipReq> get serializer =>
+      _$gUpdateSpaceshipReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GUpdateSpaceshipReq.serializer, this);
+  static GUpdateSpaceshipReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GUpdateSpaceshipReq.serializer, json);
+}

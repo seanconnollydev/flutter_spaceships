@@ -93,6 +93,13 @@ class SpaceshipList extends StatelessWidget {
         return ListTile(
           title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
           trailing: Text('🚀', style: TextStyle(fontSize: 24)),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (ctx) =>
+                  EditSpaceshipDialog(client: _client, id: spaceship.G_id),
+            );
+          },
         );
       },
     );
@@ -147,6 +154,50 @@ class _AddSpaceshipScreenState extends State<AddSpaceshipScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class EditSpaceshipDialog extends StatefulWidget {
+  final Client client;
+  final String id;
+
+  EditSpaceshipDialog({this.client, this.id});
+
+  @override
+  _EditSpaceshipDialogState createState() => _EditSpaceshipDialogState();
+}
+
+class _EditSpaceshipDialogState extends State<EditSpaceshipDialog> {
+  final _nameController = TextEditingController();
+
+  _save(BuildContext context) async {
+    final mutation = GUpdateSpaceshipReq(
+      (b) => b
+        ..vars.id = widget.id
+        ..vars.data.name = _nameController.text,
+    );
+    await widget.client.request(mutation).first;
+    Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: TextFormField(
+        controller: _nameController,
+        decoration: const InputDecoration(
+          icon: Icon(Icons.badge),
+          helperText: 'Enter a new name for the ship',
+          labelText: 'Name',
+        ),
+      ),
+      actions: [
+        TextButton(
+          child: Text('Save'),
+          onPressed: () => _save(context),
+        )
+      ],
     );
   }
 }

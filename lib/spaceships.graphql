@@ -20,3 +20,10 @@ mutation CreateSpaceship($data: SpaceshipInput!) {
     name
   }
 }
+
+mutation UpdateSpaceship($id: ID!, $data: SpaceshipInput!) {
+  updateSpaceship(id: $id, data: $data) {
+    _id
+    name
+  }
+}
