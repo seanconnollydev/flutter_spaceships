@@ -72,3 +72,20 @@ abstract class GUpdateSpaceshipVars
   static GUpdateSpaceshipVars fromJson(Map<String, dynamic> json) =>
       _i1.serializers.deserializeWith(GUpdateSpaceshipVars.serializer, json);
 }
+
+abstract class GDeleteSpaceshipVars
+    implements Built<GDeleteSpaceshipVars, GDeleteSpaceshipVarsBuilder> {
+  GDeleteSpaceshipVars._();
+
+  factory GDeleteSpaceshipVars(
+          [Function(GDeleteSpaceshipVarsBuilder b) updates]) =
+      _$GDeleteSpaceshipVars;
+
+  String get id;
+  static Serializer<GDeleteSpaceshipVars> get serializer =>
+      _$gDeleteSpaceshipVarsSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GDeleteSpaceshipVars.serializer, this);
+  static GDeleteSpaceshipVars fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GDeleteSpaceshipVars.serializer, json);
+}

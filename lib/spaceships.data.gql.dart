@@ -226,3 +226,52 @@ abstract class GUpdateSpaceshipData_updateSpaceship
       _i1.serializers.deserializeWith(
           GUpdateSpaceshipData_updateSpaceship.serializer, json);
 }
+
+abstract class GDeleteSpaceshipData
+    implements Built<GDeleteSpaceshipData, GDeleteSpaceshipDataBuilder> {
+  GDeleteSpaceshipData._();
+
+  factory GDeleteSpaceshipData(
+          [Function(GDeleteSpaceshipDataBuilder b) updates]) =
+      _$GDeleteSpaceshipData;
+
+  static void _initializeBuilder(GDeleteSpaceshipDataBuilder b) =>
+      b..G__typename = 'Mutation';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @nullable
+  GDeleteSpaceshipData_deleteSpaceship get deleteSpaceship;
+  static Serializer<GDeleteSpaceshipData> get serializer =>
+      _$gDeleteSpaceshipDataSerializer;
+  Map<String, dynamic> toJson() =>
+      _i1.serializers.serializeWith(GDeleteSpaceshipData.serializer, this);
+  static GDeleteSpaceshipData fromJson(Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(GDeleteSpaceshipData.serializer, json);
+}
+
+abstract class GDeleteSpaceshipData_deleteSpaceship
+    implements
+        Built<GDeleteSpaceshipData_deleteSpaceship,
+            GDeleteSpaceshipData_deleteSpaceshipBuilder> {
+  GDeleteSpaceshipData_deleteSpaceship._();
+
+  factory GDeleteSpaceshipData_deleteSpaceship(
+          [Function(GDeleteSpaceshipData_deleteSpaceshipBuilder b) updates]) =
+      _$GDeleteSpaceshipData_deleteSpaceship;
+
+  static void _initializeBuilder(
+          GDeleteSpaceshipData_deleteSpaceshipBuilder b) =>
+      b..G__typename = 'Spaceship';
+  @BuiltValueField(wireName: '__typename')
+  String get G__typename;
+  @BuiltValueField(wireName: '_id')
+  String get G_id;
+  static Serializer<GDeleteSpaceshipData_deleteSpaceship> get serializer =>
+      _$gDeleteSpaceshipDataDeleteSpaceshipSerializer;
+  Map<String, dynamic> toJson() => _i1.serializers
+      .serializeWith(GDeleteSpaceshipData_deleteSpaceship.serializer, this);
+  static GDeleteSpaceshipData_deleteSpaceship fromJson(
+          Map<String, dynamic> json) =>
+      _i1.serializers.deserializeWith(
+          GDeleteSpaceshipData_deleteSpaceship.serializer, json);
+}

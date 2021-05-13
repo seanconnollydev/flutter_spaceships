@@ -7,6 +7,8 @@ import 'package:flutter_spaceships/spaceships.data.gql.dart'
     show
         GCreateSpaceshipData,
         GCreateSpaceshipData_createSpaceship,
+        GDeleteSpaceshipData,
+        GDeleteSpaceshipData_deleteSpaceship,
         GGetSpaceshipData,
         GGetSpaceshipData_findSpaceshipByID,
         GGetSpaceshipsData,
@@ -17,12 +19,14 @@ import 'package:flutter_spaceships/spaceships.data.gql.dart'
 import 'package:flutter_spaceships/spaceships.req.gql.dart'
     show
         GCreateSpaceshipReq,
+        GDeleteSpaceshipReq,
         GGetSpaceshipReq,
         GGetSpaceshipsReq,
         GUpdateSpaceshipReq;
 import 'package:flutter_spaceships/spaceships.var.gql.dart'
     show
         GCreateSpaceshipVars,
+        GDeleteSpaceshipVars,
         GGetSpaceshipVars,
         GGetSpaceshipsVars,
         GUpdateSpaceshipVars;
@@ -40,6 +44,10 @@ final SerializersBuilder _serializersBuilder = _$serializers.toBuilder()
   GCreateSpaceshipReq,
   GCreateSpaceshipVars,
   GDate,
+  GDeleteSpaceshipData,
+  GDeleteSpaceshipData_deleteSpaceship,
+  GDeleteSpaceshipReq,
+  GDeleteSpaceshipVars,
   GGetSpaceshipData,
   GGetSpaceshipData_findSpaceshipByID,
   GGetSpaceshipReq,

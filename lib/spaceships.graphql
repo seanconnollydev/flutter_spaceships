@@ -27,3 +27,9 @@ mutation UpdateSpaceship($id: ID!, $data: SpaceshipInput!) {
     name
   }
 }
+
+mutation DeleteSpaceship($id: ID!) {
+  deleteSpaceship(id: $id) {
+    _id
+  }
+}

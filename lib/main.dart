@@ -21,8 +21,8 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-  final Client _client;
-  App(this._client);
+  final Client client;
+  App(this.client);
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +32,15 @@ class App extends StatelessWidget {
         primarySwatch: Colors.indigo,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(_client),
+      home: HomeScreen(client),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
-  final Client _client;
+  final Client client;
 
-  HomeScreen(this._client);
+  HomeScreen(this.client);
 
   GGetSpaceshipsReq get _request =>
       GGetSpaceshipsReq((b) => b..fetchPolicy = FetchPolicy.CacheAndNetwork);
@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Operation<GGetSpaceshipsData, GGetSpaceshipsVars>(
-      client: _client,
+      client: client,
       operationRequest: _request,
       builder: (context, response, error) {
         return Scaffold(
@@ -57,7 +57,10 @@ class HomeScreen extends StatelessWidget {
           ),
           body: response.loading
               ? Text('Loading...')
-              : SpaceshipList(_client, response.data.spaceships),
+              : SpaceshipList(
+                  client: client,
+                  spaceships: response.data.spaceships,
+                ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             onPressed: () {
@@ -65,11 +68,11 @@ class HomeScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => AddSpaceshipScreen(
-                    client: _client,
+                    client: client,
                   ),
                 ),
               ).then((_) {
-                _client.requestController.add(_request);
+                client.requestController.add(_request);
               });
             },
           ),
@@ -80,26 +83,35 @@ class HomeScreen extends StatelessWidget {
 }
 
 class SpaceshipList extends StatelessWidget {
-  final Client _client;
-  final GGetSpaceshipsData_spaceships _spaceships;
-  SpaceshipList(this._client, this._spaceships);
+  final Client client;
+  final GGetSpaceshipsData_spaceships spaceships;
+  SpaceshipList({this.client, this.spaceships});
+
+  _delete(String id) async {
+    final mutation = GDeleteSpaceshipReq((b) => b..vars.id = id);
+    await client.request(mutation).first;
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: _spaceships.data.length,
+      itemCount: spaceships.data.length,
       itemBuilder: (context, i) {
-        final spaceship = _spaceships.data[i];
-        return ListTile(
-          title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
-          trailing: Text('🚀', style: TextStyle(fontSize: 24)),
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (ctx) =>
-                  EditSpaceshipDialog(client: _client, id: spaceship.G_id),
-            );
-          },
+        final spaceship = spaceships.data[i];
+        return Dismissible(
+          key: ValueKey(spaceship.G_id),
+          child: ListTile(
+            title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
+            trailing: Text('🚀', style: TextStyle(fontSize: 24)),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (ctx) =>
+                    EditSpaceshipDialog(client: client, id: spaceship.G_id),
+              );
+            },
+          ),
+          onDismissed: (_) => _delete(spaceship.G_id),
         );
       },
     );

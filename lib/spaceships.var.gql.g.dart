@@ -14,6 +14,8 @@ Serializer<GCreateSpaceshipVars> _$gCreateSpaceshipVarsSerializer =
     new _$GCreateSpaceshipVarsSerializer();
 Serializer<GUpdateSpaceshipVars> _$gUpdateSpaceshipVarsSerializer =
     new _$GUpdateSpaceshipVarsSerializer();
+Serializer<GDeleteSpaceshipVars> _$gDeleteSpaceshipVarsSerializer =
+    new _$GDeleteSpaceshipVarsSerializer();
 
 class _$GGetSpaceshipsVarsSerializer
     implements StructuredSerializer<GGetSpaceshipsVars> {
@@ -169,6 +171,51 @@ class _$GUpdateSpaceshipVarsSerializer
           result.data.replace(serializers.deserialize(value,
                   specifiedType: const FullType(_i2.GSpaceshipInput))
               as _i2.GSpaceshipInput);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteSpaceshipVarsSerializer
+    implements StructuredSerializer<GDeleteSpaceshipVars> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteSpaceshipVars,
+    _$GDeleteSpaceshipVars
+  ];
+  @override
+  final String wireName = 'GDeleteSpaceshipVars';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GDeleteSpaceshipVars object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteSpaceshipVars deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteSpaceshipVarsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -515,6 +562,86 @@ class GUpdateSpaceshipVarsBuilder
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteSpaceshipVars extends GDeleteSpaceshipVars {
+  @override
+  final String id;
+
+  factory _$GDeleteSpaceshipVars(
+          [void Function(GDeleteSpaceshipVarsBuilder) updates]) =>
+      (new GDeleteSpaceshipVarsBuilder()..update(updates)).build();
+
+  _$GDeleteSpaceshipVars._({this.id}) : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('GDeleteSpaceshipVars', 'id');
+    }
+  }
+
+  @override
+  GDeleteSpaceshipVars rebuild(
+          void Function(GDeleteSpaceshipVarsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteSpaceshipVarsBuilder toBuilder() =>
+      new GDeleteSpaceshipVarsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteSpaceshipVars && id == other.id;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, id.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GDeleteSpaceshipVars')..add('id', id))
+        .toString();
+  }
+}
+
+class GDeleteSpaceshipVarsBuilder
+    implements Builder<GDeleteSpaceshipVars, GDeleteSpaceshipVarsBuilder> {
+  _$GDeleteSpaceshipVars _$v;
+
+  String _id;
+  String get id => _$this._id;
+  set id(String id) => _$this._id = id;
+
+  GDeleteSpaceshipVarsBuilder();
+
+  GDeleteSpaceshipVarsBuilder get _$this {
+    if (_$v != null) {
+      _id = _$v.id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteSpaceshipVars other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GDeleteSpaceshipVars;
+  }
+
+  @override
+  void update(void Function(GDeleteSpaceshipVarsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GDeleteSpaceshipVars build() {
+    final _$result = _$v ?? new _$GDeleteSpaceshipVars._(id: id);
     replace(_$result);
     return _$result;
   }

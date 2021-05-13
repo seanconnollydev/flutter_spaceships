@@ -29,6 +29,11 @@ Serializer<GUpdateSpaceshipData> _$gUpdateSpaceshipDataSerializer =
 Serializer<GUpdateSpaceshipData_updateSpaceship>
     _$gUpdateSpaceshipDataUpdateSpaceshipSerializer =
     new _$GUpdateSpaceshipData_updateSpaceshipSerializer();
+Serializer<GDeleteSpaceshipData> _$gDeleteSpaceshipDataSerializer =
+    new _$GDeleteSpaceshipDataSerializer();
+Serializer<GDeleteSpaceshipData_deleteSpaceship>
+    _$gDeleteSpaceshipDataDeleteSpaceshipSerializer =
+    new _$GDeleteSpaceshipData_deleteSpaceshipSerializer();
 
 class _$GGetSpaceshipsDataSerializer
     implements StructuredSerializer<GGetSpaceshipsData> {
@@ -528,6 +533,116 @@ class _$GUpdateSpaceshipData_updateSpaceshipSerializer
           break;
         case 'name':
           result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteSpaceshipDataSerializer
+    implements StructuredSerializer<GDeleteSpaceshipData> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteSpaceshipData,
+    _$GDeleteSpaceshipData
+  ];
+  @override
+  final String wireName = 'GDeleteSpaceshipData';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GDeleteSpaceshipData object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+    ];
+    if (object.deleteSpaceship != null) {
+      result
+        ..add('deleteSpaceship')
+        ..add(serializers.serialize(object.deleteSpaceship,
+            specifiedType:
+                const FullType(GDeleteSpaceshipData_deleteSpaceship)));
+    }
+    return result;
+  }
+
+  @override
+  GDeleteSpaceshipData deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteSpaceshipDataBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'deleteSpaceship':
+          result.deleteSpaceship.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(GDeleteSpaceshipData_deleteSpaceship))
+              as GDeleteSpaceshipData_deleteSpaceship);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$GDeleteSpaceshipData_deleteSpaceshipSerializer
+    implements StructuredSerializer<GDeleteSpaceshipData_deleteSpaceship> {
+  @override
+  final Iterable<Type> types = const [
+    GDeleteSpaceshipData_deleteSpaceship,
+    _$GDeleteSpaceshipData_deleteSpaceship
+  ];
+  @override
+  final String wireName = 'GDeleteSpaceshipData_deleteSpaceship';
+
+  @override
+  Iterable<Object> serialize(
+      Serializers serializers, GDeleteSpaceshipData_deleteSpaceship object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      '__typename',
+      serializers.serialize(object.G__typename,
+          specifiedType: const FullType(String)),
+      '_id',
+      serializers.serialize(object.G_id, specifiedType: const FullType(String)),
+    ];
+
+    return result;
+  }
+
+  @override
+  GDeleteSpaceshipData_deleteSpaceship deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new GDeleteSpaceshipData_deleteSpaceshipBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case '__typename':
+          result.G__typename = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case '_id':
+          result.G_id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -1590,6 +1705,227 @@ class GUpdateSpaceshipData_updateSpaceshipBuilder
     final _$result = _$v ??
         new _$GUpdateSpaceshipData_updateSpaceship._(
             G__typename: G__typename, G_id: G_id, name: name);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteSpaceshipData extends GDeleteSpaceshipData {
+  @override
+  final String G__typename;
+  @override
+  final GDeleteSpaceshipData_deleteSpaceship deleteSpaceship;
+
+  factory _$GDeleteSpaceshipData(
+          [void Function(GDeleteSpaceshipDataBuilder) updates]) =>
+      (new GDeleteSpaceshipDataBuilder()..update(updates)).build();
+
+  _$GDeleteSpaceshipData._({this.G__typename, this.deleteSpaceship})
+      : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError('GDeleteSpaceshipData', 'G__typename');
+    }
+  }
+
+  @override
+  GDeleteSpaceshipData rebuild(
+          void Function(GDeleteSpaceshipDataBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteSpaceshipDataBuilder toBuilder() =>
+      new GDeleteSpaceshipDataBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteSpaceshipData &&
+        G__typename == other.G__typename &&
+        deleteSpaceship == other.deleteSpaceship;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, G__typename.hashCode), deleteSpaceship.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GDeleteSpaceshipData')
+          ..add('G__typename', G__typename)
+          ..add('deleteSpaceship', deleteSpaceship))
+        .toString();
+  }
+}
+
+class GDeleteSpaceshipDataBuilder
+    implements Builder<GDeleteSpaceshipData, GDeleteSpaceshipDataBuilder> {
+  _$GDeleteSpaceshipData _$v;
+
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
+  GDeleteSpaceshipData_deleteSpaceshipBuilder _deleteSpaceship;
+  GDeleteSpaceshipData_deleteSpaceshipBuilder get deleteSpaceship =>
+      _$this._deleteSpaceship ??=
+          new GDeleteSpaceshipData_deleteSpaceshipBuilder();
+  set deleteSpaceship(
+          GDeleteSpaceshipData_deleteSpaceshipBuilder deleteSpaceship) =>
+      _$this._deleteSpaceship = deleteSpaceship;
+
+  GDeleteSpaceshipDataBuilder() {
+    GDeleteSpaceshipData._initializeBuilder(this);
+  }
+
+  GDeleteSpaceshipDataBuilder get _$this {
+    if (_$v != null) {
+      _G__typename = _$v.G__typename;
+      _deleteSpaceship = _$v.deleteSpaceship?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteSpaceshipData other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GDeleteSpaceshipData;
+  }
+
+  @override
+  void update(void Function(GDeleteSpaceshipDataBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GDeleteSpaceshipData build() {
+    _$GDeleteSpaceshipData _$result;
+    try {
+      _$result = _$v ??
+          new _$GDeleteSpaceshipData._(
+              G__typename: G__typename,
+              deleteSpaceship: _deleteSpaceship?.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'deleteSpaceship';
+        _deleteSpaceship?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'GDeleteSpaceshipData', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$GDeleteSpaceshipData_deleteSpaceship
+    extends GDeleteSpaceshipData_deleteSpaceship {
+  @override
+  final String G__typename;
+  @override
+  final String G_id;
+
+  factory _$GDeleteSpaceshipData_deleteSpaceship(
+          [void Function(GDeleteSpaceshipData_deleteSpaceshipBuilder)
+              updates]) =>
+      (new GDeleteSpaceshipData_deleteSpaceshipBuilder()..update(updates))
+          .build();
+
+  _$GDeleteSpaceshipData_deleteSpaceship._({this.G__typename, this.G_id})
+      : super._() {
+    if (G__typename == null) {
+      throw new BuiltValueNullFieldError(
+          'GDeleteSpaceshipData_deleteSpaceship', 'G__typename');
+    }
+    if (G_id == null) {
+      throw new BuiltValueNullFieldError(
+          'GDeleteSpaceshipData_deleteSpaceship', 'G_id');
+    }
+  }
+
+  @override
+  GDeleteSpaceshipData_deleteSpaceship rebuild(
+          void Function(GDeleteSpaceshipData_deleteSpaceshipBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  GDeleteSpaceshipData_deleteSpaceshipBuilder toBuilder() =>
+      new GDeleteSpaceshipData_deleteSpaceshipBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is GDeleteSpaceshipData_deleteSpaceship &&
+        G__typename == other.G__typename &&
+        G_id == other.G_id;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, G__typename.hashCode), G_id.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('GDeleteSpaceshipData_deleteSpaceship')
+          ..add('G__typename', G__typename)
+          ..add('G_id', G_id))
+        .toString();
+  }
+}
+
+class GDeleteSpaceshipData_deleteSpaceshipBuilder
+    implements
+        Builder<GDeleteSpaceshipData_deleteSpaceship,
+            GDeleteSpaceshipData_deleteSpaceshipBuilder> {
+  _$GDeleteSpaceshipData_deleteSpaceship _$v;
+
+  String _G__typename;
+  String get G__typename => _$this._G__typename;
+  set G__typename(String G__typename) => _$this._G__typename = G__typename;
+
+  String _G_id;
+  String get G_id => _$this._G_id;
+  set G_id(String G_id) => _$this._G_id = G_id;
+
+  GDeleteSpaceshipData_deleteSpaceshipBuilder() {
+    GDeleteSpaceshipData_deleteSpaceship._initializeBuilder(this);
+  }
+
+  GDeleteSpaceshipData_deleteSpaceshipBuilder get _$this {
+    if (_$v != null) {
+      _G__typename = _$v.G__typename;
+      _G_id = _$v.G_id;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(GDeleteSpaceshipData_deleteSpaceship other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$GDeleteSpaceshipData_deleteSpaceship;
+  }
+
+  @override
+  void update(
+      void Function(GDeleteSpaceshipData_deleteSpaceshipBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$GDeleteSpaceshipData_deleteSpaceship build() {
+    final _$result = _$v ??
+        new _$GDeleteSpaceshipData_deleteSpaceship._(
+            G__typename: G__typename, G_id: G_id);
     replace(_$result);
     return _$result;
   }

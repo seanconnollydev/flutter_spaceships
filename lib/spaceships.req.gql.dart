@@ -188,3 +188,48 @@ abstract class GUpdateSpaceshipReq
   static GUpdateSpaceshipReq fromJson(Map<String, dynamic> json) =>
       _i6.serializers.deserializeWith(GUpdateSpaceshipReq.serializer, json);
 }
+
+abstract class GDeleteSpaceshipReq
+    implements
+        Built<GDeleteSpaceshipReq, GDeleteSpaceshipReqBuilder>,
+        _i1.OperationRequest<_i2.GDeleteSpaceshipData,
+            _i3.GDeleteSpaceshipVars> {
+  GDeleteSpaceshipReq._();
+
+  factory GDeleteSpaceshipReq(
+      [Function(GDeleteSpaceshipReqBuilder b) updates]) = _$GDeleteSpaceshipReq;
+
+  static void _initializeBuilder(GDeleteSpaceshipReqBuilder b) => b
+    ..operation =
+        _i4.Operation(document: _i5.document, operationName: 'DeleteSpaceship')
+    ..executeOnListen = true;
+  _i3.GDeleteSpaceshipVars get vars;
+  _i4.Operation get operation;
+  _i4.Request get execRequest =>
+      _i4.Request(operation: operation, variables: vars.toJson());
+  @nullable
+  String get requestId;
+  @nullable
+  @BuiltValueField(serialize: false)
+  _i2.GDeleteSpaceshipData Function(
+      _i2.GDeleteSpaceshipData, _i2.GDeleteSpaceshipData) get updateResult;
+  @nullable
+  _i2.GDeleteSpaceshipData get optimisticResponse;
+  @nullable
+  String get updateCacheHandlerKey;
+  @nullable
+  Map<String, dynamic> get updateCacheHandlerContext;
+  @nullable
+  _i1.FetchPolicy get fetchPolicy;
+  @nullable
+  bool get executeOnListen;
+  @override
+  _i2.GDeleteSpaceshipData parseData(Map<String, dynamic> json) =>
+      _i2.GDeleteSpaceshipData.fromJson(json);
+  static Serializer<GDeleteSpaceshipReq> get serializer =>
+      _$gDeleteSpaceshipReqSerializer;
+  Map<String, dynamic> toJson() =>
+      _i6.serializers.serializeWith(GDeleteSpaceshipReq.serializer, this);
+  static GDeleteSpaceshipReq fromJson(Map<String, dynamic> json) =>
+      _i6.serializers.deserializeWith(GDeleteSpaceshipReq.serializer, json);
+}
