@@ -7,16 +7,35 @@ import 'spaceships.req.gql.dart';
 import 'spaceships.data.gql.dart';
 import 'spaceships.var.gql.dart';
 
+UpdateCacheHandler<GDeleteSpaceshipData, GDeleteSpaceshipVars>
+    deleteSpaceshipHandler = (
+  proxy,
+  response,
+) {
+  final request = GGetSpaceshipsReq();
+  final spaceshipsData = proxy.readQuery(request);
+
+  proxy.writeQuery(
+    request,
+    spaceshipsData.rebuild((b) => b
+      ..spaceships
+          .data
+          .removeWhere((s) => s.G_id == response.data.deleteSpaceship.G_id)),
+  );
+};
+
 void main() async {
   await DotEnv.load();
   final client = Client(
-    link: HttpLink(
-      "https://graphql.fauna.com/graphql",
-      defaultHeaders: {
-        'Authorization': 'Bearer ${DotEnv.env["FAUNA_KEY"]}',
-      },
-    ),
-  );
+      link: HttpLink(
+        "https://graphql.fauna.com/graphql",
+        defaultHeaders: {
+          'Authorization': 'Bearer ${DotEnv.env["FAUNA_KEY"]}',
+        },
+      ),
+      updateCacheHandlers: {
+        'deleteSpaceshipHandler': deleteSpaceshipHandler,
+      });
   runApp(App(client));
 }
 
@@ -88,7 +107,11 @@ class SpaceshipList extends StatelessWidget {
   SpaceshipList({this.client, this.spaceships});
 
   _delete(String id) async {
-    final mutation = GDeleteSpaceshipReq((b) => b..vars.id = id);
+    final mutation = GDeleteSpaceshipReq(
+      (b) => b
+        ..vars.id = id
+        ..updateCacheHandlerKey = 'deleteSpaceshipHandler',
+    );
     await client.request(mutation).first;
   }
 
