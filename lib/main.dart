@@ -125,6 +125,7 @@ class SpaceshipList extends StatelessWidget {
         final spaceship = spaceships.data[i];
         return Dismissible(
           key: ValueKey(spaceship.G_id),
+          onDismissed: (_) => _delete(spaceship.G_id),
           child: ListTile(
             title: Text(spaceship.name, style: TextStyle(fontSize: 20)),
             trailing: Text('🚀', style: TextStyle(fontSize: 24)),
@@ -136,7 +137,6 @@ class SpaceshipList extends StatelessWidget {
               );
             },
           ),
-          onDismissed: (_) => _delete(spaceship.G_id),
         );
       },
     );
