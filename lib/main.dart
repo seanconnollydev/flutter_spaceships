@@ -90,8 +90,10 @@ class HomeScreen extends StatelessWidget {
                     client: client,
                   ),
                 ),
-              ).then((_) {
-                client.requestController.add(_request);
+              ).then((didAddSpaceship) {
+                if (didAddSpaceship == true) {
+                  client.requestController.add(_request);
+                }
               });
             },
           ),
@@ -158,7 +160,7 @@ class _AddSpaceshipScreenState extends State<AddSpaceshipScreen> {
         GCreateSpaceshipReq((b) => b..vars.data.name = _nameController.text);
 
     await widget.client.request(mutation).first;
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(true);
   }
 
   @override
